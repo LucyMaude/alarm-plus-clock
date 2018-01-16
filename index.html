@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="alarmApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Alarm + Clock</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Comfortaa" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="container-fluid" ng-controller="homeCtrl">
+    <div class="row stop-watch" ng-class="{'large-screen' : toggle}">
+        <div class="col-xs-12 col-lg-6 watch-current">
+        <span class="toggle-button" ng-click="toggle = ! toggle">Stop Watch</span>
+        </div>
+        <div class="col-xs-12 col-lg-6 watch-set"></div>
+    </div>
+    <div class="row alarm-clock" ng-class="{'small-screen' : toggle }">
+        <div class="col-xs-12 col-lg-6 clock-current">
+           <span class="toggle-button" ng-click="toggle = ! toggle">Alarm Clock</span>
+            <div class="test-five" id="time">
+            </div>
+        </div>
+        <div class="col-xs-12 col-lg-6 clock-alarm"></div>
+    </div>
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+
+<script src="app.js"></script>
+</html>

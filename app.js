@@ -1,25 +1,32 @@
-function checkFormat(i) {
-    if (i < 10) {
-        i = "0" + i;
+var app = angular.module("alarmApp", []);
+
+app.controller("homeCtrl", ["$scope", function ($scope) {
+
+    $scope.checkFormat = function (i) {
+
+        if (i < 10) {
+            i = "0" + i;
+        }
+        return i;
     }
-    return i;
-}
 
-function findTime() {
-    var time = new Date();
-    var h = time.getHours();
-    var m = time.getMinutes();
-    var s = time.getSeconds();
+    $scope.findTime = function () {
+        var time = new Date();
+        var h = time.getHours();
+        var m = time.getMinutes();
+        var s = time.getSeconds();
 
-    checkFormat(h);
-    checkFormat(m);
-    checkFormat(s);
+        h = $scope.checkFormat(h);
+        m = $scope.checkFormat(m);
+        s = $scope.checkFormat(s);
 
-    document.getElementById("time").innerHTML = h + ":" m + ":" s;
+        document.getElementById('time').innerHTML = h + ":" + m + ":" + s;
 
-    setTimeout(function () {
-        whatTime()
-    }, 500);
-}
+        setTimeout(function () {
+            $scope.findTime()
+        }, 500);
+    }
 
-findTime()
+    $scope.findTime();
+
+}]);

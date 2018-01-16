@@ -1,0 +1,56 @@
+/*stop-watch space to expand when viewing */
+.stop-watch {
+    height: 5vh;
+    transition: height 2s;
+}
+.watch-set {
+    background-color:black;
+    color: #fafaf1;
+}
+
+.watch-current {
+    background-color: #fafaf1;
+    color: black;
+}
+
+/* alarm-clock to expand when viewing */
+.alarm-clock {
+    height: 95vh;
+    transition: height 2s;
+}
+
+.small-screen {
+    height: 5vh !important;
+}
+
+.large-screen {
+    height: 95vh !important;
+}
+
+.clock-current {
+    background-color: black;
+    color: #fafaf1;
+}
+
+.clock-arlarm {
+    background-color: #fafaf1;
+    color: black;
+}
+
+/* main settings for app-wide styling.*/
+.test-five {
+    color: #fafaf1;
+    font-family: 'Comfortaa', cursive;
+    text-align: center;
+    font-size: 10vh;
+}
+
+.toggle-button {
+    background: none !important;
+    font-family: 'Comfortaa', cursive;
+    text-align: center;
+    font-size: 2vh;
+    width: 100%;
+}
+
+
