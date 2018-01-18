@@ -1,19 +1,25 @@
 /*stop-watch space to expand when viewing */
+
 .stop-watch {
     height: 5vh;
     transition: height 2s;
 }
-.watch-set {
-    background-color:black;
-    color: #fafaf1;
+
+.watch-timer {
+    color: black;
+    background-color: #fafaf1;
 }
 
-.watch-current {
-    background-color: #fafaf1;
-    color: black;
+.watch-laps {
+    background-color: black;
+    color: #fafaf1;
+    font-family: 'Comfortaa', cursive;
+    font-size: 3vh;
 }
+
 
 /* alarm-clock to expand when viewing */
+
 .alarm-clock {
     height: 95vh;
     transition: height 2s;
@@ -32,25 +38,52 @@
     color: #fafaf1;
 }
 
-.clock-arlarm {
+.clock-alarm {
     background-color: #fafaf1;
     color: black;
+    font-family: 'Comfortaa', cursive;
+    text-align: center;
 }
 
+#setHead {
+    font-size: 3vh;
+    padding: 5px;
+    width: 100%;
+}
+
+
 /* main settings for app-wide styling.*/
-.test-five {
+i{
+    font-family: 'Comfortaa', cursive;
+}
+.large-light-font {
     color: #fafaf1;
     font-family: 'Comfortaa', cursive;
     text-align: center;
     font-size: 10vh;
 }
-
+.large-dark-font {
+    color: black;
+    font-family: 'Comfortaa', cursive;
+    text-align: center;
+    font-size: 10vh;
+}
 .toggle-button {
     background: none !important;
     font-family: 'Comfortaa', cursive;
-    text-align: center;
-    font-size: 2vh;
+    font-size: 3vh;
     width: 100%;
+    padding: 5px;
 }
 
+.fa-plus {
+    font-size: 4vh;
+}
 
+p {
+    font-size: 3vh;
+}
+
+.fa-minus {
+    font-size: 4vh;
+}
