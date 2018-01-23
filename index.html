@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="alarmApp">
+
 <head>
     <meta charset="UTF-8">
     <title>Alarm + Clock</title>
@@ -10,126 +11,104 @@
 </head>
 
 <body class="container-fluid" ng-controller="homeCtrl">
-    <div class="row stop-watch" ng-class="{'large-screen' : toggle}">
-        <div class="col-xs-12 col-lg-6 watch-timer">
-            <div class="row toggle-button" ng-click="toggle = ! toggle">
-                Stop Watch</div>
-            <div class="row">
-                <i class="fa fa-plus" ng-click="timerPlusHours('ten')"></i>
-                <p>10</p>
-                <i class="fa fa-plus" ng-click="timerPlusMinutes('ten')"></i>
-                <p>10</p>
-                <i class="fa fa-plus" ng-click="timerPlusSeconds('ten')"></i>
-                <p>10</p>
+
+    <div class="row timer-view" ng-class="{'large-screen' : toggle}">
+        <div class="col-xs-12 col-lg-6 timer-set large-dark-font">
+            <div class="row row-height" ng-class="{'hidden-content' : ! toggle }">
+                <div class="col-xs-12 col-lg-12">
+                    <i class="fa fa-plus" ng-click="timerPlusHours()" ng-class="{'hidden-content' : startTime}" ></i>
+                    <i class="fa fa-plus" ng-click="timerPlusMinutes()" ng-class="{'hidden-content' : startTime}" ></i>
+                    <i class="fa fa-plus" ng-click="timerPlusSeconds()" ng-class="{'hidden-content' : startTime}" ></i>
+                </div>
             </div>
-            <div class="row">
-                <i class="fa fa-plus" ng-click="timerPlusHours('five')"></i>
-                <p>5</p>
-                <i class="fa fa-plus" ng-click="timerPlusMinutes('five')"></i>
-                <p>5</p>
-                <i class="fa fa-plus" ng-click="timerPlusSeconds('five')"></i>
-                <p>5</p>
+            <div class="row row-height" ng-class="{'hidden-content' : ! toggle }">
+                <div class="col-xs-12 col-lg-12">
+                    {{timerHours}}:{{timerMinutes}}:{{timerSeconds}}
+                </div>
             </div>
-            <div class="row">
-                <i class="fa fa-plus" ng-click="timerPlusHours('one')"></i>
-                <p>1</p>
-                <i class="fa fa-plus" ng-click="timerPlusMinutes('one')"></i>
-                <p>1</p>
-                <i class="fa fa-plus" ng-click="timerPlusSeconds('one')"></i>
-                <p>1</p>
+            <div class="row row-height" ng-class="{'hidden-content' : ! toggle }">
+                <div class="col-xs-12 col-lg-12">
+                    <i class="fa fa-minus" ng-click="timerMinusHours()" ng-class="{'hidden-content' : startTime}" ></i>
+                    <i class="fa fa-minus" ng-click="timerMinusMinutes()" ng-class="{'hidden-content' : startTime}" ></i>
+                    <i class="fa fa-minus" ng-click="timerMinusSeconds()" ng-class="{'hidden-content' : startTime}" ></i>
+                </div>
             </div>
-            <div class="row large-dark-font">{{timerHours}}:{{timerMinutes}}:{{timerSeconds}}</div>
-            <div class="row">
-                <i class="fa fa-minus" ng-click="timerMinusHours('one')"></i>
-                <p>1</p>
-                <i class="fa fa-minus" ng-click="timerMinusMinutes('one')"></i>
-                <p>1</p>
-                <i class="fa fa-minus" ng-click="timerMinusSeconds('one')"></i>
-                <p>1</p>
-            </div>
-            <div class="row">
-                <i class="fa fa-minus" ng-click="timerMinusHours('five')"></i>
-                <p>5</p>
-                <i class="fa fa-minus" ng-click="timerMinusMinutes('five')"></i>
-                <p>5</p>
-                <i class="fa fa-minus" ng-click="timerMinusSeconds('five')"></i>
-                <p>5</p>
-            </div>
-            <div class="row">
-                <i class="fa fa-minus" ng-click="timerMinusHours('ten')"></i>
-                <p>10</p>
-                <i class="fa fa-minus" ng-click="timerMinusMinutes('ten')"></i>
-                <p>10</p>
-                <i class="fa fa-minus"ng-click="timerMinusSeconds('ten')"></i>
-                <p>10</p>
+            <div class="row row-height" ng-class="{'hidden-content' : ! toggle }">
+                <div class="col-xs-12 col-lg-12">
+                    <button class="btn" ng-click="startTimer(); startTime = ! startTime;" ng-class="{'hidden-content' : startTime}" >Start</button>
+                    <button class="btn" ng-click="stopTimer(); startTime = ! startTime; " ng-class="{'hidden-content' : ! startTime}" >Stop</button>
+                    <button class="btn" ng-click="resetTimer(); startTime = ! startTime">Reset</button>
+                </div>
             </div>
         </div>
-        <div class="col-xs-12 col-lg-6 watch-laps">
-            <div class="row">Laps</div>
-            <div class="row large-light-font">00:00:00</div>
-        </div>
-    </div>
-    <div class="row alarm-clock" ng-class="{'small-screen' : toggle }">
-        <div class="col-xs-12 col-lg-6 clock-current">
-            <div class="row toggle-button" ng-click="toggle = ! toggle"><span>Alarm Clock</span></div>
-            <div class="large-light-font row" id="time">
+        <div class="col-xs-12 col-lg-6 timer-laps large-light-font">
+            <div class="row row-height" ng-class="{'hidden-content' : ! toggle }">
+                <div class="col-xs-12 col-lg-12">
+                </div>
             </div>
-        </div>
-        <div class="col-xs-12 col-lg-6 clock-alarm">
-            <div class="row" id="setHead">Set Alarm</div>
-            <div class="row">
-                <i class="fa fa-plus" ng-click="alarmPlusHours('ten')"></i>
-                <p>10</p>
-                <i class="fa fa-plus" ng-click="alarmPlusMinutes('ten')"></i>
-                <p>10</p>
-                <i class="fa fa-plus" ng-click="alarmPlusSeconds('ten')"></i>
-                <p>10</p>
+            <div class="row row-height" ng-class="{'hidden-content' : ! toggle }">
+                <div class="col-xs-12 col-lg-12 large-light-font">00:00:00</div>
             </div>
-            <div class="row">
-                <i class="fa fa-plus" ng-click="alarmPlusHours('five')"></i>
-                <p>5</p>
-                <i class="fa fa-plus" ng-click="alarmPlusMinutes('five')"></i>
-                <p>5</p>
-                <i class="fa fa-plus" ng-click="alarmPlusSeconds('five')"></i>
-                <p>5</p>
+            <div class="row row-height" ng-class="{'hidden-content' : ! toggle }">
+                <div class="col-xs-12 col-lg-12"></div>
             </div>
-            <div class="row">
-                <i class="fa fa-plus" ng-click="alarmPlusHours('one')"></i>
-                <p>1</p>
-                <i class="fa fa-plus" ng-click="alarmPlusMinutes('one')"></i>
-                <p>1</p>
-                <i class="fa fa-plus" ng-click="alarmPlusSeconds('one')"></i>
-                <p>1</p>
-            </div>
-            <div class="row large-dark-font">{{alarmHours}}:{{alarmMinutes}}:{{alarmSeconds}}</div>
-            <div class="row">
-                <i class="fa fa-minus" ng-click="alarmMinusHours('ten')"></i>
-                <p>10</p>
-                <i class="fa fa-minus" ng-click="alarmMinusMinutes('ten')"></i>
-                <p>10</p>
-                <i class="fa fa-minus" ng-click="alarmMinusSeconds('ten')"></i>
-                <p>10</p>
-            </div>
-            <div class="row">
-                <i class="fa fa-minus" ng-click="alarmMinusHours('five')"></i>
-                <p>5</p>
-                <i class="fa fa-minus" ng-click="alarmMinusMinutes('five')"></i>
-                <p>5</p>
-                <i class="fa fa-minus" ng-click="alarmMinusSeconds('five')"></i>
-                <p>5</p>
-            </div>
-            <div class="row">
-                <i class="fa fa-minus" ng-click="alarmMinusHours('one')"></i>
-                <p>1</p>
-                <i class="fa fa-minus" ng-click="alarmMinusMinutes('one')"></i>
-                <p>1</p>
-                <i class="fa fa-minus" ng-click="alarmMinusSeconds('one')"></i>
-                <p>1</p>
+            <div class="row row-height" ng-class="{'hidden-content' : ! toggle }">
+                <div class="col-xs-12 col-lg-12"></div>
             </div>
         </div>
     </div>
+    <div class="row navigation">
+        <div class="col-xs-12 col-lg-6 toggle-button timer-nav small-font-dark" ng-click="toggle = ! toggle; start">
+            <p>Stop Watch</p>
+        </div>
+        <div class="col-xs-12 col-lg-6 timer-space"></div>
+    </div>
+
+    <div class="row navigation">
+        <div class="col-xs-12 col-lg-6 small-font-light toggle-button clock-nav" ng-click="toggle = ! toggle; start">
+            <p>Time</p>
+        </div>
+        <div class="col-xs-12 col-lg-6 clock-space"></div>
+    </div>
+    
+    <div class="row alarm-view" ng-class="{'small-screen' : toggle }">
+        <div class="col-xs-12 col-lg-6 alarm-time large-light-font">
+            <div class="row row-height" ng-class="{'hidden-content' : toggle }"></div>
+            <div class="row row-height" ng-class="{'hidden-content' : toggle }">
+                <div class="col-xs-12 col-lg-12" id="time"></div>
+            </div>
+            <div class="row row-height" ng-class="{'hidden-content' : toggle }"></div>
+            <div class="row row-height" ng-class="{'hidden-content' : toggle }"></div>
+        </div>
+        <div class="col-xs-12 col-lg-6 alarm-set large-dark-font">
+            <div class="row row-height" ng-class="{'hidden-content' : toggle }">
+                <div class="col-xs-12 col-lg-12">
+                    <i class="fa fa-plus" ng-click="alarmPlusHours()" ng-class="{'hidden-content' : start}" ></i>
+                    <i class="fa fa-plus" ng-click="alarmPlusMinutes()" ng-class="{'hidden-content' : start}" ></i>
+                </div>
+            </div>
+            <div class="row row-height" ng-class="{'hidden-content' : toggle }">
+                <div class="col-xs-12 col-lg-12">{{alarmHours}}:{{alarmMinutes}} + {{alarmSeconds}}</div>
+            </div>
+            <div class="row row-height" ng-class="{'hidden-content' : toggle}">
+                <div class="col-xs-12 col-lg-12">
+                    <i class="fa fa-minus" ng-click="alarmMinusHours()" ng-class="{'hidden-content' : start}" ></i>
+                    <i class="fa fa-minus" ng-click="alarmMinusMinutes()" ng-class="{'hidden-content' : start}" ></i>
+                </div>
+            </div>
+            <div class="row row-height" ng-class="{'hidden-content' : toggle }">
+                <div class="col-xs-12 col-lg-12">
+                    <button class="btn" ng-click="startAlarm(); start = ! start" ng-class="{'hidden-content' : start}">Start</button>
+                    <button class="btn" ng-click="stopAlarm(); start = ! start" ng-class="{'hidden-content' : ! start}">Stop</button>
+                    <button class="btn" ng-click="resetAlarm()">Reset</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
 
 <script src="app.js"></script>
+
 </html>

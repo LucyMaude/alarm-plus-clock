@@ -1,89 +1,113 @@
-/*stop-watch space to expand when viewing */
-
-.stop-watch {
-    height: 5vh;
-    transition: height 2s;
+/*Spacing and Position*/
+.row-height {
+    height: 20vh;
+}
+.hidden-content {
+    display: none;
 }
 
-.watch-timer {
-    color: black;
-    background-color: #fafaf1;
+/*Font Stylings*/
+* {
+    font-family: 'Comfortaa', cursive;
 }
-
-.watch-laps {
-    background-color: black;
+.small-font-light{
     color: #fafaf1;
-    font-family: 'Comfortaa', cursive;
-    font-size: 3vh;
+    text-decoration: none;
 }
-
-
-/* alarm-clock to expand when viewing */
-
-.alarm-clock {
-    height: 95vh;
-    transition: height 2s;
-}
-
-.small-screen {
-    height: 5vh !important;
-}
-
-.large-screen {
-    height: 95vh !important;
-}
-
-.clock-current {
-    background-color: black;
-    color: #fafaf1;
-}
-
-.clock-alarm {
-    background-color: #fafaf1;
+.small-font-dark {
+    text-decoration: none;
     color: black;
-    font-family: 'Comfortaa', cursive;
-    text-align: center;
-}
-
-#setHead {
-    font-size: 3vh;
-    padding: 5px;
-    width: 100%;
-}
-
-
-/* main settings for app-wide styling.*/
-i{
-    font-family: 'Comfortaa', cursive;
 }
 .large-light-font {
     color: #fafaf1;
-    font-family: 'Comfortaa', cursive;
     text-align: center;
     font-size: 10vh;
 }
 .large-dark-font {
     color: black;
-    font-family: 'Comfortaa', cursive;
     text-align: center;
     font-size: 10vh;
 }
-.toggle-button {
-    background: none !important;
-    font-family: 'Comfortaa', cursive;
-    font-size: 3vh;
-    width: 100%;
-    padding: 5px;
-}
-
 .fa-plus {
     font-size: 4vh;
+    margin: 2.5vw;
+}
+.fa-minus {
+    font-size: 4vh;
+    margin: 2.5vw;
 }
 
-p {
+/*Alarm row.*/
+.alarm-view {
+    height: 80vh;
+    transition: height 2s;
+    text-align: center;
+}
+.alarm-time {
+    background-color: black;
+    color: #fafaf1;
+}
+.alarm-set {
+    background-color: #fafaf1;
+    color: black;
+    font-family: 'Comfortaa', cursive;
+    text-align: center;
+}
+
+/*Timer row.*/
+.timer-view {
+    height: 0vh;
+    transition: height 2s;
+    text-align: center; 
+}
+.timer-set {
+    color: black;
+    background-color: #fafaf1;
+}
+.timer-laps {
+    background-color: black;
+    color: #fafaf1;
+    font-family: 'Comfortaa', cursive;
     font-size: 3vh;
 }
 
-.fa-minus {
-    font-size: 4vh;
+/*top navigation*/
+.navigation {
+    height: 10vh;
+    
 }
+.clock-nav {
+    background-color: #000;
+}
+.clock-space {
+    background-color: #fafaf1;
+}
+.timer-space {
+    background-color: black;
+}
+.timer-nav {
+    background-color: #fafaf1;
+}
+.toggle-button {
+    text-align: center;
+    width: 100%;
+    font-size: 5vh;
+    padding: 10px;
+}
+.small-screen {
+   height: 0vh !important;
+}
+.large-screen {
+    height: 80vh !important;
+}
+
+/*button styling*/
+.btn {
+    border: 3px solid black;
+    background-color: #fafaf1;
+}
+.btn:hover {
+    background-color: black;
+    color: #fafaf1;
+}
+
