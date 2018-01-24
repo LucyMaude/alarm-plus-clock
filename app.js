@@ -12,6 +12,8 @@ app.controller("homeCtrl", ["$scope", "$interval", "ChangeTimerService", "Change
     };
 
     //function gets the current time//
+    $scope.currentHours;
+    $scope.currentMins;
     $scope.findTime = function () {
         var time = new Date();
         var h = time.getHours();
@@ -22,6 +24,9 @@ app.controller("homeCtrl", ["$scope", "$interval", "ChangeTimerService", "Change
         m = $scope.checkFormat(m);
         s = $scope.checkFormat(s);
 
+        $scope.currentHours = h;
+        $scope.currentMins = m;
+
         document.getElementById('time').innerHTML = h + ":" + m + ":" + s;
 
         setTimeout(function () {
@@ -29,8 +34,17 @@ app.controller("homeCtrl", ["$scope", "$interval", "ChangeTimerService", "Change
         }, 500);
     };
     $scope.findTime();
-    
+    $scope.audio = new Audio('kwahmah-02__alarm1.mp3');
+    $scope.audio.loop = true;
+
     $scope.started = false;
+    $scope.inspireGroup = ["You've Got this!","Awesome levels over 9000!","Keep Going!","You can do it!"]
+    $scope.inspireWords = "Need a boost?";
+    
+    $scope.motivate = function () {
+        var newWords = Math.floor(Math.random() * Math.floor(4));
+        $scope.inspireWords = $scope.inspireGroup[newWords];
+    }
 
     //retrieves set time from the ChangeTimerService//
     $scope.timerHours = $scope.checkFormat(ChangeTimerService.hours);
@@ -82,12 +96,14 @@ app.controller("homeCtrl", ["$scope", "$interval", "ChangeTimerService", "Change
         ChangeTimerService.subtractSeconds();
         $scope.timerSeconds = $scope.checkFormat(ChangeTimerService.seconds);
     };
+
     //functions to set and reset timer//
 
 
     //retrieves set time from the ChangeAlarmService//
     $scope.alarmHours = $scope.checkFormat(ChangeAlarmService.hours);
     $scope.alarmMinutes = $scope.checkFormat(ChangeAlarmService.minutes);
+    
 
     //functions to add to alarm//
     $scope.alarmPlusHours = function () {
@@ -98,13 +114,13 @@ app.controller("homeCtrl", ["$scope", "$interval", "ChangeTimerService", "Change
         $scope.alarmHours = $scope.checkFormat(ChangeAlarmService.hours);
     };
     $scope.alarmPlusMinutes = function () {
-        console.log($scope.alarmMinutes);
         if ($scope.alarmMinutes == 55) {
             return;
         }
         ChangeAlarmService.addMinutes();
-        console.log($scope.alarmMinutes);
         $scope.alarmMinutes = $scope.checkFormat(ChangeAlarmService.minutes);
+        console.log($scope.alarmMinutes);
+
     };
 
     //functions to subtract from alarm//
@@ -124,36 +140,55 @@ app.controller("homeCtrl", ["$scope", "$interval", "ChangeTimerService", "Change
     };
 
 
-    //functions to set and reset alarm//
-    $scope.startAlarm = function () {}
+    //functions to set and reset alarm and timer//
+    $scope.timerStarted;
+    $scope.alarmStarted;
+    $scope.updateAlarm = function () {
+        if (($scope.currentHours === $scope.alarmHours) && ($scope.currentMins == $scope.alarmMinutes)) {
+            $scope.audio.play();
+            $interval.cancel($scope.alarmStarted);
+            $scope.resetAlarm();
+            $scope.start = false;
+        }
+    };
+    $scope.startAlarm = function () {
+        console.log("alarm started")
+        $scope.alarmStarted = $interval($scope.updateAlarm, 1000);
+    };
     $scope.stopAlarm = function () {
-
+        console.log("clicked stop alarm function");
+        return $interval.cancel($scope.alarmStarted);
+        $scope.audio.pause();
     };
     $scope.resetAlarm = function () {
         console.log("clicked reset")
         ChangeAlarmService.resetAlarm();
         $scope.alarmHours = $scope.checkFormat(ChangeAlarmService.hours);
         $scope.alarmMinutes = $scope.checkFormat(ChangeAlarmService.minutes);
+        $interval.cancel($scope.alarmStarted);
+        $scope.audio.pause();
 
     };
 
     $scope.updateTimer = function () {
         console.log("update timer started");
+        if (ChangeTimerService.sound) {
+            $interval.cancel($scope.timerStarted);
+            $scope.audio.play();
+        }
         ChangeTimerService.countdown();
         $scope.timerHours = $scope.checkFormat(ChangeTimerService.hours);
         $scope.timerMinutes = $scope.checkFormat(ChangeTimerService.minutes);
         $scope.timerSeconds = $scope.checkFormat(ChangeTimerService.seconds);
     };
-    
-    $scope.started; 
-
     $scope.startTimer = function () {
         console.log("timer started")
-        $scope.started = $interval($scope.updateTimer, 1000);;
+        $scope.timerStarted = $interval($scope.updateTimer, 1000);
     };
     $scope.stopTimer = function () {
         console.log("clicked stop function");
-        return $interval.cancel($scope.started);
+        $scope.audio.pause();
+        $interval.cancel($scope.timerStarted);
 
     };
     $scope.resetTimer = function () {
@@ -162,6 +197,7 @@ app.controller("homeCtrl", ["$scope", "$interval", "ChangeTimerService", "Change
         $scope.timerHours = $scope.checkFormat(ChangeTimerService.hours);
         $scope.timerMinutes = $scope.checkFormat(ChangeTimerService.minutes);
         $scope.timerSeconds = $scope.checkFormat(ChangeTimerService.seconds);
+        $scope.audio.pause();
     };
 
 
@@ -172,6 +208,7 @@ app.service("ChangeTimerService", function () {
     this.hours = 0;
     this.minutes = 0;
     this.seconds = 0;
+    this.sound = false;
 
     //these functions add time//
     this.addHours = function () {
@@ -196,37 +233,37 @@ app.service("ChangeTimerService", function () {
     //these functions are called during countdown when timer is set//
     this.countdown = function () {
         console.log("countdown function running");
-            if (this.hours === 0 && this.minutes === 0) {
+        if (this.hours === 0 && this.minutes === 0) {
+            if (this.seconds === 0) {
+                return this.sound = true;
+            } else {
+                this.seconds -= 1;
+            }
+        } else if (this.hours === 0 && this.minutes !== 0) {
+            if (this.seconds === 0) {
+                this.minutes -= 1;
+                this.seconds = 59;
+            } else {
+                this.seconds -= 1;
+            }
+        } else {
+            if (this.minutes === 0) {
                 if (this.seconds === 0) {
-                    return;
+                    this.hours -= 1;
+                    this.minutes = 59;
+                    this.seconds = 59;
                 } else {
-                    this.seconds -= 1;
+                    seconds -= 1;
                 }
-            } else if (this.hours === 0 && this.minutes !== 0) {
+            } else if (this.minutes !== 0) {
                 if (this.seconds === 0) {
                     this.minutes -= 1;
                     this.seconds = 59;
                 } else {
                     this.seconds -= 1;
                 }
-            } else {
-                if (this.minutes === 0) {
-                    if (this.seconds === 0) {
-                        this.hours -= 1;
-                        this.minutes = 59;
-                        this.seconds = 59;
-                    } else {
-                        seconds -= 1;
-                    }
-                } else if (this.minutes !== 0) {
-                    if (this.seconds === 0) {
-                        this.minutes -= 1;
-                        this.seconds = 59;
-                    } else {
-                        this.seconds -= 1;
-                    }
-                }
             }
+        }
     };
 
     //these functions set, stop, and reset the timer//
@@ -235,8 +272,7 @@ app.service("ChangeTimerService", function () {
         this.minutes = 00;
         this.seconds = 00;
     }
-    this.setAlarm = function () {};
-    this.stopAlarm = function () {};
+
 });
 
 app.service("ChangeAlarmService", function () {
@@ -254,6 +290,7 @@ app.service("ChangeAlarmService", function () {
             return;
         }
         return this.hours += 1;
+
     }
     this.addMinutes = function (input) {
         return this.minutes += 5;
@@ -267,12 +304,10 @@ app.service("ChangeAlarmService", function () {
         return this.minutes -= 5;
     }
 
-    //    functions to set, stop, and reset timer//
+    //    function to reset alarm//
     this.resetAlarm = function () {
         this.hours = 00;
         this.minutes = 00;
         this.seconds = 00;
     }
-    this.setAlarm = function () {}
-    this.stopAlarm = function () {}
 });

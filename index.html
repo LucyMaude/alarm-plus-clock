@@ -37,23 +37,23 @@
                 <div class="col-xs-12 col-lg-12">
                     <button class="btn" ng-click="startTimer(); startTime = ! startTime;" ng-class="{'hidden-content' : startTime}" >Start</button>
                     <button class="btn" ng-click="stopTimer(); startTime = ! startTime; " ng-class="{'hidden-content' : ! startTime}" >Stop</button>
-                    <button class="btn" ng-click="resetTimer(); startTime = ! startTime">Reset</button>
+                    <button class="btn" ng-click="resetTimer(); startTime = false">Reset</button>
                 </div>
             </div>
         </div>
-        <div class="col-xs-12 col-lg-6 timer-laps large-light-font">
+        <div class="col-xs-12 col-lg-6 timer-motivation large-light-font">
             <div class="row row-height" ng-class="{'hidden-content' : ! toggle }">
                 <div class="col-xs-12 col-lg-12">
                 </div>
             </div>
             <div class="row row-height" ng-class="{'hidden-content' : ! toggle }">
-                <div class="col-xs-12 col-lg-12 large-light-font">00:00:00</div>
+                <div class="col-xs-12 col-lg-12 large-light-font">{{inspireWords}}</div>
             </div>
             <div class="row row-height" ng-class="{'hidden-content' : ! toggle }">
                 <div class="col-xs-12 col-lg-12"></div>
             </div>
             <div class="row row-height" ng-class="{'hidden-content' : ! toggle }">
-                <div class="col-xs-12 col-lg-12"></div>
+                <div class="col-xs-12 col-lg-12"><button class="btn" ng-click="motivate()" id="motivationBtn">Motivate</button></div>
             </div>
         </div>
     </div>
@@ -73,12 +73,12 @@
     
     <div class="row alarm-view" ng-class="{'small-screen' : toggle }">
         <div class="col-xs-12 col-lg-6 alarm-time large-light-font">
-            <div class="row row-height" ng-class="{'hidden-content' : toggle }"></div>
+            <div class="row row-height empty-view" ng-class="{'hidden-content' : toggle }"></div>
             <div class="row row-height" ng-class="{'hidden-content' : toggle }">
                 <div class="col-xs-12 col-lg-12" id="time"></div>
             </div>
-            <div class="row row-height" ng-class="{'hidden-content' : toggle }"></div>
-            <div class="row row-height" ng-class="{'hidden-content' : toggle }"></div>
+            <div class="row row-height empty-view" ng-class="{'hidden-content' : toggle }"></div>
+            <div class="row row-height  empty-view" ng-class="{'hidden-content' : toggle }"></div>
         </div>
         <div class="col-xs-12 col-lg-6 alarm-set large-dark-font">
             <div class="row row-height" ng-class="{'hidden-content' : toggle }">
@@ -88,7 +88,7 @@
                 </div>
             </div>
             <div class="row row-height" ng-class="{'hidden-content' : toggle }">
-                <div class="col-xs-12 col-lg-12">{{alarmHours}}:{{alarmMinutes}} + {{alarmSeconds}}</div>
+                <div class="col-xs-12 col-lg-12">{{alarmHours}}:{{alarmMinutes}}</div>
             </div>
             <div class="row row-height" ng-class="{'hidden-content' : toggle}">
                 <div class="col-xs-12 col-lg-12">
@@ -100,7 +100,7 @@
                 <div class="col-xs-12 col-lg-12">
                     <button class="btn" ng-click="startAlarm(); start = ! start" ng-class="{'hidden-content' : start}">Start</button>
                     <button class="btn" ng-click="stopAlarm(); start = ! start" ng-class="{'hidden-content' : ! start}">Stop</button>
-                    <button class="btn" ng-click="resetAlarm()">Reset</button>
+                    <button class="btn" ng-click="resetAlarm(); start = false">Reset</button>
                 </div>
             </div>
         </div>
@@ -108,7 +108,5 @@
 
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
-
 <script src="app.js"></script>
-
 </html>
