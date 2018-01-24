@@ -149,7 +149,6 @@ app.controller("homeCtrl", ["$scope", "$interval", "ChangeTimerService", "Change
         if (($scope.currentHours === $scope.alarmHours) && ($scope.currentMins == $scope.alarmMinutes)) {
             $scope.audio.play();
             $interval.cancel($scope.alarmStarted);
-            $scope.resetAlarm();
             $scope.start = false;
         }
     };
