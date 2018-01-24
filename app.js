@@ -187,6 +187,7 @@ app.controller("homeCtrl", ["$scope", "$interval", "ChangeTimerService", "Change
     };
     $scope.stopTimer = function () {
         console.log("clicked stop function");
+        ChangeTimerService.sound = false;
         $scope.audio.pause();
         $interval.cancel($scope.timerStarted);
 
@@ -197,7 +198,8 @@ app.controller("homeCtrl", ["$scope", "$interval", "ChangeTimerService", "Change
         $scope.timerHours = $scope.checkFormat(ChangeTimerService.hours);
         $scope.timerMinutes = $scope.checkFormat(ChangeTimerService.minutes);
         $scope.timerSeconds = $scope.checkFormat(ChangeTimerService.seconds);
-        $scope.audio.pause();
+        ChangeTimerService.sound = false;
+        $scope.audio.stop();
     };
 
 
