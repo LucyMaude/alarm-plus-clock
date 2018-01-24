@@ -37,6 +37,8 @@ app.controller("homeCtrl", ["$scope", "$interval", "ChangeTimerService", "Change
     $scope.audio = new Audio('kwahmah-02__alarm1.mp3');
     $scope.audio.loop = true;
 
+    
+    //these help balance the split screen look when screen sizes are above a certain px width//
     $scope.started = false;
     $scope.inspireGroup = ["You've Got this!","Awesome levels over 9000!","Keep Going!","You can do it!"]
     $scope.inspireWords = "Need a boost?";
@@ -175,6 +177,7 @@ app.controller("homeCtrl", ["$scope", "$interval", "ChangeTimerService", "Change
         if (ChangeTimerService.sound) {
             $interval.cancel($scope.timerStarted);
             $scope.audio.play();
+//            $scope.startTime = false;
         }
         ChangeTimerService.countdown();
         $scope.timerHours = $scope.checkFormat(ChangeTimerService.hours);
@@ -199,7 +202,7 @@ app.controller("homeCtrl", ["$scope", "$interval", "ChangeTimerService", "Change
         $scope.timerMinutes = $scope.checkFormat(ChangeTimerService.minutes);
         $scope.timerSeconds = $scope.checkFormat(ChangeTimerService.seconds);
         ChangeTimerService.sound = false;
-        $scope.audio.stop();
+        $scope.audio.pause();
     };
 
 
